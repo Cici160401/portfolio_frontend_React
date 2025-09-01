@@ -1,24 +1,26 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 
-export default function ProjectCard({ id, nombre, descripcion, imagen }) {
+export default function ProjectCard({ project, onClick }) {
   return (
     <motion.div
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      className="bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl cursor-pointer"
+      whileHover={{ y: -4, scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 260, damping: 18 }}
+      className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer border border-gray-100 hover:shadow-xl"
+      onClick={() => onClick(project)}
     >
-      <Link to={`/proyectos/${id}`}>
-        <img
-          src={imagen || "https://via.placeholder.com/400x200?text=No+Image"}
-          alt={nombre}
-          className="w-full h-48 object-cover"
+      <div className="relative h-44 w-full overflow-hidden">
+        <motion.img
+          src={project.image}
+          alt={project.title}
+          className="h-full w-full object-cover"
+          whileHover={{ scale: 1.06 }}
+          transition={{ duration: 0.35 }}
         />
-        <div className="p-4">
-          <h2 className="text-xl font-semibold mb-2 text-gray-800">{nombre}</h2>
-          <p className="text-gray-600 text-sm line-clamp-2">{descripcion}</p>
-        </div>
-      </Link>
+      </div>
+      <div className="p-4">
+        <h3 className="text-lg font-semibold">{project.title}</h3>
+        <p className="text-sm text-gray-600 line-clamp-2">{project.description}</p>
+      </div>
     </motion.div>
   );
 }
